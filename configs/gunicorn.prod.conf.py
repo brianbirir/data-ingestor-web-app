@@ -1,0 +1,17 @@
+bind = "127.0.0.1:8000"
+workers = 4
+worker_class = "uvicorn.workers.UvicornWorker"
+worker_connections = 1000
+max_requests = 1000
+max_requests_jitter = 100
+timeout = 30
+keepalive = 2
+preload_app = True
+daemon = False
+user = "www-data"
+group = "www-data"
+tmp_upload_dir = None
+errorlog = "/var/log/gunicorn/error.log"
+accesslog = "/var/log/gunicorn/access.log"
+access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
+loglevel = "info"
