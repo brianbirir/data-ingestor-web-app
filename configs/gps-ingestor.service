@@ -4,12 +4,12 @@ After=network.target
 
 [Service]
 Type=notify
-User=www-data
-Group=www-data
+User=nginx
+Group=nginx
 RuntimeDirectory=gunicorn
-WorkingDirectory=/path/to/gps-data-ingestor
-Environment="PATH=/path/to/gps-data-ingestor/venv/bin"
-ExecStart=/path/to/gps-data-ingestor/venv/bin/gunicorn -c gunicorn.conf.py main:app
+WorkingDirectory=/opt/gps-data-ingestor
+Environment="PATH=/opt/gps-data-ingestor/venv/bin"
+ExecStart=/opt/gps-data-ingestor/venv/bin/gunicorn -c configs/gunicorn.prod.conf.py main:app
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=on-failure
 RestartSec=10
