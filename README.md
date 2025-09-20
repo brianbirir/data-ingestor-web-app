@@ -1,6 +1,6 @@
 # GPS Data Ingestor
 
-Simple application that ingests GPS data sent to the server and saves it as timestamped text files.
+Simple application that ingests GPS raw data sent to the server and saves it as timestamped text files.
 
 ## Technology Stack
 
