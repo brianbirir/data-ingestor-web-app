@@ -6,6 +6,7 @@ services:
     container_name: gps-ingestor-app
     volumes:
       - ./data:/app/data
+      - ./main.py:/app/main.py
     networks:
       - gps-network
     environment:
