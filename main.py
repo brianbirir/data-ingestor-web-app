@@ -16,7 +16,7 @@ class DataPayload(BaseModel):
     data: Any
 
 @app.post("/")
-async def ingest_data(payload: DataPayload):
+async def ingest_data(data: Any):
     try:
         timestamp = int(time.time())
         filename = f"data_{timestamp}.txt"
@@ -24,7 +24,7 @@ async def ingest_data(payload: DataPayload):
         os.makedirs("data", exist_ok=True)
 
         with open(f"data/{filename}", "w") as f:
-            f.write(str(payload.data))
+            f.write(str(data))
 
         return {
             "message": "Data ingested successfully",
