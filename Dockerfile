@@ -1,19 +1,22 @@
-FROM python:3.12-slim
+FROM golang:1.21-alpine AS builder
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY go.mod ./
+RUN go mod download
 
 COPY . .
+RUN go build -o main .
 
-RUN mkdir -p /app/data
-RUN mkdir -p /var/log/gunicorn
-RUN chown -R www-data:www-data /var/log/gunicorn
+FROM alpine:latest
 
-EXPOSE 8000
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
 
-CMD ["gunicorn", "-c", "configs/gunicorn.dev.conf.py","--reload", "main:app"]
+COPY --from=builder /app/main .
+
+RUN mkdir -p /root/data
+
+EXPOSE 80
+
+CMD ["./main"]
